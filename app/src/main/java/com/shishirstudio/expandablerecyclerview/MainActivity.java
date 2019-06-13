@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             int previousGroup = -1;
+
             @Override
             public void onGroupExpand(int groupPosition) {
                 if (groupPosition != previousGroup)
@@ -46,17 +48,28 @@ public class MainActivity extends AppCompatActivity {
         expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             View previousGroupView = null;
             TextView currentHeaderTv, prevHeaderTv;
+
             @Override
-            public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
-                currentHeaderTv = view.findViewById(R.id.headerTv);
-                if(previousGroupView != null && view != previousGroupView){
-                    previousGroupView.setBackgroundColor(Color.WHITE);
-                    prevHeaderTv = previousGroupView.findViewById(R.id.headerTv);
-                    prevHeaderTv.setTextColor(colorPrimary);
+            public boolean onGroupClick(ExpandableListView expandableListView, View currentView, int groupPosition, long l) {
+                currentHeaderTv = currentView.findViewById(R.id.headerTv);
+                if (currentView == previousGroupView) {
+                    if (expandableListView.isGroupExpanded(groupPosition)) {
+                        currentView.setBackgroundColor(Color.WHITE);
+                        currentHeaderTv.setTextColor(colorPrimary);
+                    } else {
+                        currentView.setBackgroundColor(colorPrimary);
+                        currentHeaderTv.setTextColor(Color.WHITE);
+                    }
+                } else {
+                    currentView.setBackgroundColor(colorPrimary);
+                    currentHeaderTv.setTextColor(Color.WHITE);
+                    if (previousGroupView != null) {
+                        previousGroupView.setBackgroundColor(Color.WHITE);
+                        prevHeaderTv = previousGroupView.findViewById(R.id.headerTv);
+                        prevHeaderTv.setTextColor(colorPrimary);
+                    }
                 }
-                view.setBackgroundColor(colorPrimary);
-                currentHeaderTv.setTextColor(Color.WHITE);
-                previousGroupView = view;
+                previousGroupView = currentView;
                 return false;
             }
         });
@@ -68,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 "When Medium Members clap for an article, a portion of their $5 monthly subscription fee is paid directly to the author. According to Medium. In other words, you are paid per clap on Medium. Generally speaking, the more claps you receive, the more money you make."));
 
         faqs.add(new Faq("How does medium Partner program work?",
-                "No, you don't have to be a paying Medium member to join the Partner Program and earn money for your writing. ... Publications are a vital part of Medium. Writers can earn money through the Partner Program and include their story in a publication at the same time. It will have no impact on how much they earn."));
+                "No, you don't have to be a paying Medium member to join the Partner Program and earn money for your writing. Publications are a vital part of Medium. Writers can earn money through the Partner Program and include their story in a publication at the same time. It will have no impact on how much they earn."));
 
         faqs.add(new Faq("What do you write on a medium?",
                 "You get paid by the clap. But cost-per-clap ranges from $0.01 to $2.19. Medium pays authors based on a weighted cost-per-clap system."));
