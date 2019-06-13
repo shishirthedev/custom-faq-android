@@ -1,10 +1,11 @@
 package com.shishirstudio.expandablerecyclerview;
 
 /**
- * Created by Siddhartha on 13/06/2019.
+ * Created by Shishir on 13/06/2019.
  */
 
 public class Faq {
+
     private String question;
     private String answer;
 

@@ -31,7 +31,7 @@ public class FaqsAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_content, null);
+            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.answer_item_view, null);
         }
         TextView answerTv = convertView.findViewById(R.id.contentTv);
         String answer = getChild(groupPosition, childPosition);
@@ -64,7 +64,7 @@ public class FaqsAdapter extends BaseExpandableListAdapter {
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         Faq group = (Faq) getGroup(groupPosition);
         if (convertView == null) {
-            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_header, null);
+            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.question_item_view, null);
         }
         TextView tv = convertView.findViewById(R.id.headerTv);
         tv.setText(group.getQuestion());
